@@ -80,7 +80,7 @@ class _MyHeaderState extends State<MyHeader> {
                     child: Text(
                       "${widget.textTop} \n${widget.textBottom}",
                       style: kHeadingTextStyle.copyWith(
-                        color: Colors.white,
+                        color: widget.offset == 0 ? Colors.white : Colors.white.withOpacity(1 / widget.offset),
                       ),
                     ),
                   ),
