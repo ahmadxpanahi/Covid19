@@ -1,4 +1,5 @@
 
+import 'package:covid_19/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'constant.dart';
@@ -51,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void onScroll() {
     setState(() {
       offset = (controller.hasClients) ? controller.offset : 0;
+      print(controller.offset);
     });
   }
 
@@ -66,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
               textTop: "All you need",
               textBottom: "is stay at home.",
               offset: offset,
+              nextPage: InfoScreen()
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
@@ -192,9 +195,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(top: 20,bottom: 20),
                     padding: EdgeInsets.all(20),
-                    height: 178,
+                    height: 160,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -207,9 +210,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    child: Image.asset(
-                      "assets/images/map.png",
-                      fit: BoxFit.contain,
+                    child: Transform.scale(
+                      scale: offset/170 + 0.7,
+                      child: Image.asset(
+                        "assets/images/map.png",
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ],

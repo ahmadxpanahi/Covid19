@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,8 +11,9 @@ class MyHeader extends StatefulWidget {
   final String textTop;
   final String textBottom;
   final double offset;
+  final Widget nextPage;
   const MyHeader(
-      {Key key, this.image, this.textTop, this.textBottom, this.offset})
+      {Key key, this.image, this.textTop, this.textBottom, this.offset,this.nextPage})
       : super(key: key);
 
   @override
@@ -23,7 +26,7 @@ class _MyHeaderState extends State<MyHeader> {
     return ClipPath(
       clipper: MyClipper(),
       child: Container(
-        padding: EdgeInsets.only(left: 40, top: 50, right: 20),
+        padding: EdgeInsets.only(left: 40, top: widget.offset + 20, right: 20),
         height: 350,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -48,12 +51,15 @@ class _MyHeaderState extends State<MyHeader> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return InfoScreen();
+                      return widget.nextPage;
                     },
                   ),
                 );
               },
-              child: SvgPicture.asset("assets/icons/menu.svg"),
+              child: Padding(
+                padding: const EdgeInsets.only(top:40),
+                child: SvgPicture.asset("assets/icons/menu.svg"),
+              ),
             ),
             SizedBox(height: 20),
             Expanded(
@@ -69,7 +75,7 @@ class _MyHeaderState extends State<MyHeader> {
                     ),
                   ),
                   Positioned(
-                    top: 20 - widget.offset / 2,
+                    top: 30 - widget.offset / 2,
                     left: 150,
                     child: Text(
                       "${widget.textTop} \n${widget.textBottom}",
@@ -90,19 +96,18 @@ class _MyHeaderState extends State<MyHeader> {
 }
 
 class MyClipper extends CustomClipper<Path> {
+
   @override
   Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height - 80);
-    path.quadraticBezierTo(
-        size.width / 2, size.height, size.width, size.height - 80);
-    path.lineTo(size.width, 0);
+    var path = Path()
+    ..lineTo(0, size.height - 80)
+    ..quadraticBezierTo(
+        size.width / 2.5, size.height + 15, size.width, size.height - 80)
+    ..lineTo(size.width, 0);
     path.close();
     return path;
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

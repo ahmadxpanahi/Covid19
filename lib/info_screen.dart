@@ -1,4 +1,5 @@
 
+import 'package:covid_19/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -47,6 +48,7 @@ class _InfoScreenState extends State<InfoScreen> {
               textTop: "Get to know",
               textBottom: "About Covid-19.",
               offset: offset,
+              nextPage: HomeScreen()
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
